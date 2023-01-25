@@ -37,6 +37,32 @@ export default class App extends React.Component {
     .catch(err => console.error(err))
   }
 
+  handleClick = (id) => {
+    this.setState({
+     ...this.state,
+     todos: this.state.todos.map(todo => {
+       if(todo.id === id ){
+         return {
+           ...todo, completed: !todo.completed
+         }
+       }
+       else {
+         return todo
+       }
+     })
+    })
+   }
+
+   clear = () => {
+    this.setState({
+      ...this.state,
+      todos: this.state.todos.filter(todo => {
+        return (todo.completed === false)
+      })
+    }
+    )
+  }
+
   render() {
     return (
       <div>
@@ -44,6 +70,7 @@ export default class App extends React.Component {
         <br />
         <TodoList
           todos={this.state.todos}
+          handleClick={this.handleClick}
         />
         <Form handleAdd={this.handleAdd} />
         <button onClick={this.clear}>clear</button>
