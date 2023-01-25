@@ -24,18 +24,15 @@ export default class App extends React.Component {
   }
 
   handleAdd = (name) => {
-    
-    axios.post(URL)
+    axios.post(URL, {
+        id: Date.now(),
+        name: name,
+        completed: false
+      })
     .then(res => {
-    const newTodo = {
-      id: Date.now(),
-      name: name,
-      completed: false
-    }
-
     this.setState({
       ...this.state,
-      todos: [...this.state.todos, res.data.data, newTodo]
+      todos: [...this.state.todos, res.data.data]
     })})
     .catch(err => console.error(err))
   }
